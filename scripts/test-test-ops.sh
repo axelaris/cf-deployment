@@ -14,8 +14,8 @@ test_test_ops() {
       check_interpolation "name: disable_windows_consul_agent_nameserver_overwriting.yml" "${home}/operations/windows2012R2-cell.yml" "-o disable_windows_consul_agent_nameserver_overwriting.yml"
       check_interpolation "name: windows2016-debug.yml" "${home}/operations/windows2012R2-cell.yml"
       check_interpolation "add-oidc-provider.yml"
-      check_interpolation "name: add-persistent-isolation-segment-loggregator.yml" "add-persistent-isolation-segment-diego-cell.yml" "-o add-persistent-isolation-segment-loggregator.yml"
-      check_interpolation "name: add-persistent-isolation-segment-syslog-drain.yml" "add-persistent-isolation-segment-diego-cell.yml" "-o add-persistent-isolation-segment-loggregator.yml" "-o add-persistent-isolation-segment-syslog-drain.yml"
+      check_interpolation "name: add-persistent-isolation-segment-logging-system.yml" "add-persistent-isolation-segment-diego-cell.yml" "-o add-persistent-isolation-segment-logging-system.yml"
+      check_interpolation "name: add-persistent-isolation-segment-syslog-drain.yml" "add-persistent-isolation-segment-diego-cell.yml" "-o add-persistent-isolation-segment-logging-system.yml" "-o add-persistent-isolation-segment-syslog-drain.yml"
       check_interpolation "name: alter-router-for-log-agent.yml" "add-persistent-isolation-segment-router.yml" "-o add-persistent-isolation-segment-diego-cell.yml" "-o add-persistent-isolation-segment-loggregator.yml" "-o alter-router-for-log-agent.yml"
       check_interpolation "name: add-persistent-isolation-segment-infrastructure-metrics.yml" "${home}/operations/experimental/infrastructure-metrics.yml" "-o add-persistent-isolation-segment-diego-cell.yml" "-o add-persistent-isolation-segment-loggregator.yml" "-o add-persistent-isolation-segment-infrastructure-metrics.yml"
     popd > /dev/null # operations/test
