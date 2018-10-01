@@ -22,21 +22,6 @@
     networks:
     - name: default
     jobs:
-    - name: consul_agent
-      release: consul
-      consumes:
-        consul_common: {from: consul_common_link}
-        consul_server: nil
-        consul_client: {from: consul_client_link}
-      properties:
-        consul:
-          agent:
-            services:
-              isolated_doppler:
-                check:
-                  name: dns_health_check
-                  script: /var/vcap/jobs/doppler/bin/dns_health_check
-                  interval: 3s
     - name: doppler
       release: loggregator
       provides:
@@ -65,26 +50,6 @@
     networks:
     - name: default
     jobs:
-    - name: consul_agent
-      release: consul
-      consumes:
-        consul_common: {from: consul_common_link}
-        consul_server: nil
-        consul_client: {from: consul_client_link}
-      properties:
-        consul:
-          agent:
-            services:
-              isolated_loggregator_trafficcontroller:
-                check:
-                  name: dns_health_check
-                  script: /var/vcap/jobs/loggregator_trafficcontroller/bin/dns_health_check
-                  interval: 3s
-              isolated_reverse_log_proxy:
-                check:
-                  name: dns_health_check
-                  script: /var/vcap/jobs/reverse_log_proxy/bin/dns_health_check
-                  interval: 3s
     - name: loggregator_trafficcontroller
       release: loggregator
       consumes:
@@ -176,21 +141,6 @@
 - type: remove
   path: /addons/name=loggregator_agent
 
-- type: replace
-  path: "/instance_groups/name=consul/jobs/-"
-  value:
-    name: loggregator_agent
-    release: loggregator-agent
-    consumes:
-      doppler:
-        from: doppler
-    properties:
-      loggregator:
-        tls:
-          ca_cert: "((loggregator_ca.certificate))"
-          agent:
-            cert: "((loggregator_tls_agent.certificate))"
-            key: "((loggregator_tls_agent.private_key))"
 - type: replace
   path: "/instance_groups/name=nats/jobs/-"
   value:
